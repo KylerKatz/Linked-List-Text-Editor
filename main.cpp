@@ -6,13 +6,14 @@ struct node
 {
 	string data;
 	node *next;
-
 };
 
-class LinkedList {
+class LinkedList
+{
 private:
-	node* head;
-	node* tail;
+	node *head;
+	node *tail;
+
 public:
 	LinkedList();
 	void insertEnd(string text);
@@ -25,8 +26,8 @@ public:
 	int getListSize();
 };
 
-
-int main() {
+int main()
+{
 
 	bool keepRunning = true;
 	string action;
@@ -42,32 +43,29 @@ int main() {
 	cout << "Type 'quit' to end the program. " << endl;
 
 	*/
-	while (keepRunning == true) {
-
-
+	while (keepRunning == true)
+	{
 
 		cin >> action;
 
-		if (action == "insertEnd" || action == "insert" || action == "delete" || action == "edit" || action == "print" || action == "search" || action == "quit") {
+		if (action == "insertEnd" || action == "insert" || action == "delete" || action == "edit" || action == "print" || action == "search" || action == "quit")
+		{
 
-
-
-			if (action == "insertEnd") {
+			if (action == "insertEnd")
+			{
 
 				// Insert end
 				string textEnd;
 				getline(cin, textEnd);
 
-
-
-				if (textEnd != "" && textEnd.length() < 80) {
+				if (textEnd != "" && textEnd.length() < 80)
+				{
 					obj.insertEnd(obj.removeQuotes(textEnd));
-
 				}
-
 			}
 
-			if (action == "insert") {
+			if (action == "insert")
+			{
 
 				// Insert at
 				string indexAt;
@@ -75,29 +73,27 @@ int main() {
 				string textAt;
 				getline(cin, textAt);
 
-				if (indexAt != "" && textAt != "" &&  textAt.length() < 80) {
+				if (indexAt != "" && textAt != "" && textAt.length() < 80)
+				{
 					obj.insertAt(stoi(indexAt), obj.removeQuotes(textAt));
-
 				}
-
-
-
 			}
 
-			if (action == "delete") {
+			if (action == "delete")
+			{
 
-				// Delete 
+				// Delete
 				string deleteLine;
 				getline(cin, deleteLine);
 
-				if (deleteLine != "") {
+				if (deleteLine != "")
+				{
 					obj.deleteAt(stoi(deleteLine));
-
 				}
-
 			}
 
-			if (action == "edit") {
+			if (action == "edit")
+			{
 
 				// Edit
 				string editLine;
@@ -105,39 +101,38 @@ int main() {
 				string newText;
 				getline(cin, newText);
 
-				if (editLine != "" && newText != "" && newText.length() < 80) {
+				if (editLine != "" && newText != "" && newText.length() < 80)
+				{
 					obj.editAt(stoi(editLine), obj.removeQuotes(newText));
-
 				}
-
 			}
 
-			if (action == "print") {
+			if (action == "print")
+			{
 				obj.print();
 			}
 
-			if (action == "search") {
+			if (action == "search")
+			{
 
-				// Search 
+				// Search
 				string search;
 				getline(cin, search);
 
-				if (search != "" && search.length() < 80) {
+				if (search != "" && search.length() < 80)
+				{
 					obj.search(obj.removeQuotes(search));
 				}
-
 			}
 
-			if (action == "quit") {
+			if (action == "quit")
+			{
 				keepRunning = false;
 			}
-
 		}
 	}
 
 	return 0;
-
-
 }
 
 LinkedList::LinkedList()
@@ -148,22 +143,23 @@ LinkedList::LinkedList()
 
 void LinkedList::insertEnd(string text)
 {
-	node* temp = new node;
+	node *temp = new node;
 	temp->data = text;
 	temp->next = nullptr;
 
 	// If the list is empty, add the text at the head
-	if (head == nullptr) {
+	if (head == nullptr)
+	{
 		head = temp;
 		tail = temp;
 		temp = nullptr;
 	}
 	// If there is a node, then use the tail ptr to add the text after it
-	else {
+	else
+	{
 		tail->next = temp;
 		tail = temp;
 	}
-
 }
 
 void LinkedList::insertAt(int index, string text)
@@ -171,19 +167,22 @@ void LinkedList::insertAt(int index, string text)
 	// Check if index is out of bounds
 
 	// If you want to insert between nodes
-	if (index <= getListSize()) {
+	if (index <= getListSize())
+	{
 
-		node* temp = new node;
-		node* prev = new node;
-		node* cur = new node;
+		node *temp = new node;
+		node *prev = new node;
+		node *cur = new node;
 
 		// Assign the temp data the string that will be inserted
 		temp->data = text;
 		cur = head;
 
 		// Go to the correct position in the list
-		if (index > 1) {
-			for (int i = 1; i < index; i++) {
+		if (index > 1)
+		{
+			for (int i = 1; i < index; i++)
+			{
 				prev = cur;
 
 				cur = cur->next;
@@ -194,60 +193,65 @@ void LinkedList::insertAt(int index, string text)
 			temp->next = cur;
 		}
 
-		else {
+		else
+		{
 
 			temp->next = head;
 			head = temp;
 		}
-		if (index != 1) {
-
+		if (index != 1)
+		{
 		}
 	}
 	// If you want to insert a node at the end
-	else if (index == getListSize() + 1) {
+	else if (index == getListSize() + 1)
+	{
 
 		insertEnd(text);
 	}
 
-	else {
+	else
+	{
 		//cout << "not found" << endl;
-
 	}
 }
 
 void LinkedList::deleteAt(int index)
 {
-	if (index <= getListSize()) {
-		node* curr = new node;
-		node* temp = new node;
-		node* prev = new node;
+	if (index <= getListSize())
+	{
+		node *curr = new node;
+		node *temp = new node;
+		node *prev = new node;
 		curr = head;
-
 
 		int total = getListSize();
 		// Delete the Head with a size of 1
-		if (index == 1 && total == 1) {
+		if (index == 1 && total == 1)
+		{
 
 			delete head;
 			head = nullptr;
 		}
 
-
-
 		// Delete Head
-		if (index == 1 && total > 1) {
+		if (index == 1 && total > 1)
+		{
 			temp = head;
 
-			if (total != 1) {
+			if (total != 1)
+			{
 				head = head->next;
 			}
 			delete temp;
 		}
 
 		// Delete a node between Head and Tail
-		if (index > 1 && index < total) {
+		if (index > 1 && index < total)
+		{
 			// Search for the correct index
-			for (int i = 1; i < index; i++) {
+			for (int i = 1; i < index; i++)
+			{
 				prev = curr;
 				curr = curr->next;
 			}
@@ -258,9 +262,11 @@ void LinkedList::deleteAt(int index)
 		}
 
 		// Deleting tail
-		if (index == total && total != 1) {
+		if (index == total && total != 1)
+		{
 			curr = head;
-			while (curr->next != nullptr) {
+			while (curr->next != nullptr)
+			{
 				prev = curr;
 				curr = curr->next;
 			}
@@ -269,11 +275,11 @@ void LinkedList::deleteAt(int index)
 			prev->next = nullptr;
 			delete curr;
 		}
-
 	}
 
-	// Index is bigger then the size of the list 
-	else {
+	// Index is bigger then the size of the list
+	else
+	{
 		//cout << "not found" << endl;
 	}
 }
@@ -281,69 +287,72 @@ void LinkedList::deleteAt(int index)
 void LinkedList::editAt(int index, string text)
 {
 	// Check if index is out of bounds
-	if (index <= getListSize()) {
+	if (index <= getListSize())
+	{
 
-		node* temp = new node;
-		node* curr = new node;
+		node *temp = new node;
+		node *curr = new node;
 
 		temp->data = text;
 		curr = head;
 
-		for (int i = 0; i < index - 1; i++) {
+		for (int i = 0; i < index - 1; i++)
+		{
 			curr = curr->next;
 		}
 
 		// Replace the text that is there now with the new text
 
 		curr->data = temp->data;
-
 	}
 
-	else {
+	else
+	{
 		//cout << "not found" << endl;
 	}
-
 }
 
 void LinkedList::print()
 {
-	node* curr = new node;
+	node *curr = new node;
 	int line = 1;
 	curr = head;
 
-	if (getListSize() == 0) {
+	if (getListSize() == 0)
+	{
 		//cout << "not found" << endl;
 	}
 
-	if (getListSize() == 1) {
+	if (getListSize() == 1)
+	{
 		cout << line << " " << curr->data << endl;
 	}
 
-	if (getListSize() > 1) {
-		for (int i = 0; i < getListSize(); i++) {
+	if (getListSize() > 1)
+	{
+		for (int i = 0; i < getListSize(); i++)
+		{
 			cout << line << " " << curr->data << endl;
 
 			curr = curr->next;
 			line++;
 		}
 	}
-
-
 }
-
 
 void LinkedList::search(string text)
 {
-	node* curr = new node;
+	node *curr = new node;
 	curr = head;
 	int line = 1;
 
 	bool notFound = true;
 
-	while (curr != nullptr) {
+	while (curr != nullptr)
+	{
 
-
-		if (curr->data.find(text) != string::npos) {
+		if (curr->data.find(text) != string::npos)
+		{
 
 			cout << line << " " << curr->data << endl;
 			notFound = false;
@@ -353,10 +362,10 @@ void LinkedList::search(string text)
 		curr = curr->next;
 	}
 
-	if (notFound == true) {
+	if (notFound == true)
+	{
 		cout << "not found" << endl;
 	}
-
 }
 
 string LinkedList::removeQuotes(string text)
@@ -364,18 +373,18 @@ string LinkedList::removeQuotes(string text)
 	text.erase(0, 2);
 	text.erase(text.end() - 1);
 
-
 	return text;
 }
 
 int LinkedList::getListSize()
 {
 	int size = 0;
-	node* curr = new node;
+	node *curr = new node;
 
 	curr = head;
 
-	while (curr != nullptr) {
+	while (curr != nullptr)
+	{
 		size++;
 		curr = curr->next;
 	}
